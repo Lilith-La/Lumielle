@@ -16,7 +16,7 @@
   <div class="journal-grid">
     {#each articles as article, i}
       <article class="journal-card" class:journal-card--large={i === 0}>
-        <img src={article.image} alt={article.title} />
+        <img src={article.image} alt={article.title} loading="lazy" />
         <div class="journal-content">
           <span class="tag">{article.tag}</span>
           <h3>{article.title}</h3>
@@ -38,10 +38,12 @@
     letter-spacing: 0.2em;
     color: #9c8d81;
     font-size: 0.8rem;
+    margin: 0 0 0.5rem;
   }
 
   h2 {
     margin-top: 1rem;
+    margin-bottom: 0;
     font-size: 3rem;
     line-height: 1.05;
     letter-spacing: -0.04em;
@@ -115,6 +117,14 @@
   @media (max-width: 900px) {
     .journal-grid { grid-template-columns: 1fr; }
     .journal-card--large { grid-row: auto; }
-    h2 { font-size: 2rem; }
+    h2 { font-size: 2.2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .journal { padding: 3rem 5% 6rem; }
+    h2 { font-size: 1.9rem; }
+    .journal-card--large img { height: 260px; }
+    .journal-card img { height: 180px; }
+    .journal-content { padding: 1.2rem; }
   }
 </style>

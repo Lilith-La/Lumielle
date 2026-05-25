@@ -7,7 +7,9 @@
 <section class="hero" id="hero">
   <div class="noise"></div>
 
-  <Nav {scrollTo} />
+  <div class="nav-wrap">
+    <Nav {scrollTo} />
+  </div>
 
   <div class="hero-grid">
     <div class="hero-content">
@@ -38,7 +40,12 @@
     min-height: 100vh;
     padding: 2rem 7% 6rem;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+  }
+
+  .nav-wrap {
+    position: relative;
+    z-index: 10;
   }
 
   .noise {
@@ -46,6 +53,7 @@
     inset: 0;
     opacity: 0.03;
     background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    pointer-events: none;
   }
 
   .hero-grid {
@@ -63,10 +71,11 @@
     color: #9c8d81;
     font-size: 0.8rem;
     margin-bottom: 1.5rem;
+    margin-top: 0;
   }
 
   h1 {
-    font-size: clamp(3rem, 6vw, 6rem);
+    font-size: clamp(2.8rem, 6vw, 6rem);
     line-height: 0.95;
     margin: 0;
     font-weight: 700;
@@ -86,6 +95,7 @@
     display: flex;
     gap: 1rem;
     margin-top: 2.5rem;
+    flex-wrap: wrap;
   }
 
   .primary {
@@ -97,7 +107,10 @@
     cursor: pointer;
     font-size: 0.95rem;
     font-family: inherit;
+    transition: opacity 0.2s ease;
   }
+
+  .primary:hover { opacity: 0.8; }
 
   .secondary {
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -106,7 +119,11 @@
     border-radius: 999px;
     cursor: pointer;
     font-family: inherit;
+    font-size: 0.95rem;
+    transition: background 0.2s ease;
   }
+
+  .secondary:hover { background: rgba(255, 255, 255, 0.9); }
 
   .hero-visual {
     position: relative;
@@ -137,9 +154,27 @@
     transform: translate(-50%, -50%);
   }
 
+  /* Tablet */
   @media (max-width: 900px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-visual img { height: 500px; }
-    h1 { font-size: clamp(2.5rem, 10vw, 5rem); }
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .hero-visual { order: -1; }
+    .hero-visual img { height: 420px; max-width: 100%; }
+    h1 { font-size: clamp(2.4rem, 9vw, 4rem); }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .hero {
+      padding: 1.5rem 5% 4rem;
+      min-height: auto;
+    }
+    .hero-visual img { height: 300px; border-radius: 1.5rem; }
+    h1 { font-size: clamp(2rem, 11vw, 3rem); letter-spacing: -0.04em; }
+    .subtitle { font-size: 0.95rem; margin-top: 1.25rem; }
+    .hero-actions { margin-top: 2rem; }
+    .primary, .secondary { padding: 0.85rem 1.4rem; font-size: 0.9rem; }
   }
 </style>

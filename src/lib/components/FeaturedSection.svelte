@@ -31,7 +31,7 @@
       <p class="small-label">Featured Collection</p>
       <h2>Designed for slow beauty rituals.</h2>
     </div>
-    <button class="view-all" onclick={() => scrollTo('catalog')}>View all</button>
+    <button class="view-all" onclick={() => scrollTo('catalog')}>View all →</button>
   </div>
 
   <div class="products">
@@ -46,11 +46,12 @@
         aria-label="View {item.name} details"
       >
         <div class="image-wrap">
-          <img src={item.image} alt={item.name} />
+          <img src={item.image} alt={item.name} loading="lazy" />
           <button
             class="wishlist-btn"
             class:active={wishlist.has(item.id)}
             onclick={(e) => handleWishlist(e, item.id)}
+            aria-label={wishlist.has(item.id) ? 'Remove from wishlist' : 'Add to wishlist'}
           >
             {wishlist.has(item.id) ? '♥' : '♡'}
           </button>
@@ -95,10 +96,12 @@
     letter-spacing: 0.2em;
     color: #9c8d81;
     font-size: 0.8rem;
+    margin: 0;
   }
 
   h2 {
     margin-top: 1rem;
+    margin-bottom: 0;
     font-size: 3rem;
     line-height: 1.05;
     max-width: 600px;
@@ -108,15 +111,20 @@
   .view-all {
     border: none;
     background: transparent;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
     color: #666;
     font-family: inherit;
+    padding: 0;
+    transition: opacity 0.2s;
+    white-space: nowrap;
   }
+
+  .view-all:hover { opacity: 0.5; }
 
   .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2rem;
   }
 
@@ -150,8 +158,8 @@
     background: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 50%;
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     font-size: 1rem;
     cursor: pointer;
     backdrop-filter: blur(8px);
@@ -171,12 +179,14 @@
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
+    margin: 0;
   }
 
   h3 {
     margin-top: 0.6rem;
     font-size: 1.5rem;
     margin-bottom: 0;
+    letter-spacing: -0.03em;
   }
 
   .bottom-row {
@@ -192,7 +202,7 @@
     border: none;
     background: #2b2b2b;
     color: white;
-    padding: 0.8rem 1.2rem;
+    padding: 0.8rem 1.4rem;
     border-radius: 999px;
     cursor: pointer;
     font-size: 0.9rem;
@@ -207,6 +217,20 @@
 
   @media (max-width: 900px) {
     .section-top { flex-direction: column; align-items: start; gap: 1rem; }
-    h2 { font-size: 2rem; }
+    h2 { font-size: 2.2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .featured { padding: 2rem 5% 6rem; }
+    h2 { font-size: 1.9rem; }
+    .image-wrap img { height: 260px; }
+    .products { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card { border-radius: 1.5rem; }
+    .card-content { padding: 1rem; }
+    h3 { font-size: 1.2rem; }
+  }
+
+  @media (max-width: 380px) {
+    .products { grid-template-columns: 1fr; }
   }
 </style>

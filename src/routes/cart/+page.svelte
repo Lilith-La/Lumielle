@@ -32,6 +32,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Cart — Lumiélle</title>
+</svelte:head>
+
 <div class="page">
   <nav>
     <a href="/" class="logo">Lumiélle</a>
@@ -215,17 +219,17 @@
 
   .item {
     display: grid;
-    grid-template-columns: 100px 1fr auto;
-    gap: 1.5rem;
+    grid-template-columns: 90px 1fr auto;
+    gap: 1.2rem;
     background: white;
     border-radius: 1.2rem;
     padding: 1.2rem;
-    align-items: center;
+    align-items: start;
   }
 
   .item img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
     border-radius: 0.8rem;
   }
@@ -240,12 +244,12 @@
 
   .item-info h3 {
     margin: 0.3rem 0 0.4rem;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
   }
 
   .item-desc {
     color: #888;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     margin: 0;
     line-height: 1.5;
   }
@@ -275,6 +279,8 @@
     line-height: 1;
     padding: 0 0.2rem;
     transition: opacity 0.15s;
+    min-width: 24px;
+    min-height: 24px;
   }
 
   .qty button:hover { opacity: 0.5; }
@@ -282,7 +288,7 @@
 
   .item-price {
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1rem;
     margin: 0;
   }
 
@@ -340,7 +346,7 @@
   .form-section h2 {
     font-size: 1.6rem;
     letter-spacing: -0.03em;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.5rem;
   }
 
   .field {
@@ -381,9 +387,7 @@
     box-shadow: 0 0 0 3px rgba(43, 43, 43, 0.07);
   }
 
-  input.error {
-    border-color: #c97b7b;
-  }
+  input.error { border-color: #c97b7b; }
 
   .err {
     font-size: 0.8rem;
@@ -408,11 +412,7 @@
 
   .btn-primary:hover { opacity: 0.8; }
 
-  .submit {
-    width: 100%;
-    margin-top: 0.5rem;
-    font-size: 1rem;
-  }
+  .submit { width: 100%; margin-top: 0.5rem; font-size: 1rem; }
 
   /* Empty */
   .empty {
@@ -455,30 +455,39 @@
     margin: 0;
   }
 
-  .success p {
-    color: #666;
-    font-size: 1.05rem;
-    max-width: 400px;
+  .success p { color: #666; font-size: 1.05rem; max-width: 400px; }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 2rem; }
+    .form-section { position: static; }
+    .cart-section h1 { font-size: 2rem; }
   }
 
-  @media (max-width: 900px) {
-    .layout {
-      grid-template-columns: 1fr;
-    }
-
-    .form-section {
-      position: static;
-    }
+  /* Mobile */
+  @media (max-width: 600px) {
+    .page { padding: 1.5rem 5%; }
+    nav { padding-bottom: 2rem; }
 
     .item {
-      grid-template-columns: 80px 1fr;
+      grid-template-columns: 72px 1fr;
+      gap: 1rem;
     }
+
+    .item img { width: 72px; height: 72px; }
+    .item-desc { display: none; }
 
     .item-controls {
       grid-column: 1 / -1;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      padding-top: 0.5rem;
+      border-top: 1px solid #f0ece6;
     }
+
+    .cart-section h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+    .row { grid-template-columns: 1fr; gap: 0; }
+    .form-section { padding: 1.5rem; border-radius: 1.2rem; }
   }
 </style>

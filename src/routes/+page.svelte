@@ -27,6 +27,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Lumiélle — Luxury Skincare</title>
+</svelte:head>
+
 <HeroSection {scrollTo} />
 <FeaturedSection products={featured} {scrollTo} />
 <CatalogSection {products} />

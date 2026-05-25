@@ -17,6 +17,7 @@
 
 <svelte:head>
   <title>Wishlist — Lumiélle</title>
+  <meta name="description" content="Your saved Lumiélle products." />
 </svelte:head>
 
 <div class="page">
@@ -283,6 +284,18 @@
 
   @media (max-width: 600px) {
     h1 { font-size: 2rem; }
-    .card-actions { flex-direction: column; }
+    .page { padding: 1.5rem 5% 5rem; }
+    .wishlist-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .image-wrap img { height: 200px; }
+    .card-content { padding: 1rem; }
+    h3 { font-size: 1.1rem; }
+    .description { display: none; }
+    .card-actions { flex-direction: column; gap: 0.5rem; }
+  }
+
+  @media (max-width: 380px) {
+    .wishlist-grid { grid-template-columns: 1fr; }
+    .image-wrap img { height: 240px; }
+    .description { display: block; }
   }
 </style>

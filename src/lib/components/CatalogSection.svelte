@@ -41,18 +41,20 @@
       <p class="small-label">Shop Collection</p>
       <h2>Essentials for elevated rituals.</h2>
     </div>
-    <input bind:value={search} placeholder="Search products..." class="search" />
+    <input bind:value={search} placeholder="Search products…" class="search" />
   </div>
 
-  <div class="filters">
-    {#each categories as category}
-      <button
-        class:selected={selected === category}
-        onclick={() => selected = category}
-      >
-        {category}
-      </button>
-    {/each}
+  <div class="filters-wrap">
+    <div class="filters">
+      {#each categories as category}
+        <button
+          class:selected={selected === category}
+          onclick={() => selected = category}
+        >
+          {category}
+        </button>
+      {/each}
+    </div>
   </div>
 
   <div class="catalog-grid">
@@ -70,11 +72,12 @@
           class="wishlist"
           class:active={wishlist.has(product.id)}
           onclick={(e) => handleWishlist(e, product.id)}
+          aria-label={wishlist.has(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
         >
           {wishlist.has(product.id) ? '♥' : '♡'}
         </button>
 
-        <img src={product.image} alt={product.name} />
+        <img src={product.image} alt={product.name} loading="lazy" />
 
         <div class="product-content">
           <p class="category">{product.category}</p>
@@ -124,10 +127,12 @@
     letter-spacing: 0.2em;
     color: #9c8d81;
     font-size: 0.8rem;
+    margin: 0;
   }
 
   h2 {
     margin-top: 1rem;
+    margin-bottom: 0;
     font-size: 3rem;
     line-height: 1.05;
     max-width: 600px;
@@ -144,15 +149,26 @@
     width: 240px;
     transition: box-shadow 0.2s ease;
     font-family: inherit;
+    color: #2b2b2b;
   }
 
   .search:focus { box-shadow: 0 0 0 3px rgba(43, 43, 43, 0.08); }
 
+  /* Scrollable filter bar */
+  .filters-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 2.5rem;
+    /* hide scrollbar but keep scroll */
+    scrollbar-width: none;
+  }
+  .filters-wrap::-webkit-scrollbar { display: none; }
+
   .filters {
     display: flex;
     gap: 0.6rem;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+    width: max-content;
+    min-width: 100%;
   }
 
   .filters button {
@@ -165,6 +181,8 @@
     font-family: inherit;
     transition: all 0.2s ease;
     color: #555;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .filters button.selected {
@@ -175,7 +193,7 @@
 
   .catalog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
   }
 
@@ -207,8 +225,8 @@
     background: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 50%;
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     font-size: 1rem;
     cursor: pointer;
     backdrop-filter: blur(8px);
@@ -229,12 +247,14 @@
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
+    margin: 0;
   }
 
   h3 {
     margin-top: 0.6rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 0;
+    letter-spacing: -0.02em;
   }
 
   .description {
@@ -242,6 +262,7 @@
     font-size: 0.9rem;
     line-height: 1.6;
     margin-top: 0.5rem;
+    margin-bottom: 0;
   }
 
   .bottom-row {
@@ -263,6 +284,7 @@
     font-size: 0.9rem;
     font-family: inherit;
     transition: background 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
   }
 
   .add-btn.added {
@@ -280,7 +302,25 @@
 
   @media (max-width: 900px) {
     .catalog-top { flex-direction: column; align-items: start; }
-    h2 { font-size: 2rem; }
-    .search { width: 100%; box-sizing: border-box; }
+    h2 { font-size: 2.2rem; }
+    .search { width: 100%; }
+  }
+
+  @media (max-width: 600px) {
+    .catalog { padding: 2rem 5% 6rem; }
+    h2 { font-size: 1.9rem; }
+    .catalog-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .product-card img { height: 200px; }
+    .product-content { padding: 1rem; }
+    h3 { font-size: 1.1rem; }
+    .description { display: none; }
+    .bottom-row { margin-top: 1rem; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+    .add-btn { width: 100%; text-align: center; }
+  }
+
+  @media (max-width: 380px) {
+    .catalog-grid { grid-template-columns: 1fr; }
+    .product-card img { height: 240px; }
+    .description { display: block; }
   }
 </style>
